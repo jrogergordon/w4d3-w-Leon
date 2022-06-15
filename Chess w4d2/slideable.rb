@@ -1,7 +1,8 @@
+require "byebug"
 module Slideable
 
-    HORIZONTAL_DIRS=  [[0, 1], [1, 0], [-1, 0], [0, -1]]
-    DIAGONAL_DIRS=   [[1, 1], [-1, -1], [-1, 1], [1, -1]]
+    HORIZONTAL_DIRS =  [[0, 1], [1, 0], [-1, 0], [0, -1]]
+    DIAGONAL_DIRS =   [[1, 1], [-1, -1], [-1, 1], [1, -1]]
 
     def horizontal_dirs
         HORIZONTAL_DIRS
@@ -15,10 +16,9 @@ module Slideable
 
     def moves
         all_moves = []
-        possible_moves = moves_dirs
-
+        possible_moves = move_dirs
         possible_moves.each do |ele|
-            all_moves += grow_unblocked_moves_in_dir(ele[0],ele[1])
+            all_moves.concat(grow_unblocked_moves_in_dir(ele[0],ele[1]))
         end
 
         all_moves
@@ -26,25 +26,22 @@ module Slideable
 
     private
 
-    def moves_dirs() #overwritten by subclass
+    def move_dirs #overwritten by subclass
         #overwritten
     end
 
     def grow_unblocked_moves_in_dir(dx,dy)
-        moves_in_dir=[]
-        
-        position = @pos
-        directions_arr = self.moves_dirs 
+        moves_in_dir=[]        
+        x, y = pos
+        x += dx
+        y += dy
 
-
-        until position[0] > 8 || position[0] < 0 || dy > 8 || dy < 0 ||  @board[dx, dy] != nil
-                     
-            moves_in_dir << [position[0],position[1]]
-            position[0] += dx
-            position[1]+= dy
-        
+        until x > 7 || x < 0 || y > 7 || y < 0  || @board[x][y]!=NullPiece.instance #||  #@board[position[0]][position[1]] == nil
+            moves_in_dir << [x,y]
+            x += dx
+            y += dy
         end
 
-        moves_in_dir[1..-1]
+        moves_in_dir
     end 
 end

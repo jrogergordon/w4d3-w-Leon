@@ -2,7 +2,11 @@ class Rook < Piece
     include Slideable
 
     def symbol
-       "\u2656"
+        if @color=="white"
+            return "\u265C"
+        else
+            return "\u2656" 
+        end
     end
 
 

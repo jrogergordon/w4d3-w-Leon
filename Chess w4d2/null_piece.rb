@@ -6,9 +6,14 @@ class NullPiece < Piece
     def initialize
         @color = nil
         @pos = nil
+        @board = nil
     end
 
     def moves
+    end
+
+    def symbol
+        "\u2800"
     end
 
 

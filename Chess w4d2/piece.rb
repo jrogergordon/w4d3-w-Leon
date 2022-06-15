@@ -1,10 +1,18 @@
 # require_relative "null_piece"
+require_relative 'slideable'
+require_relative 'steppable'
+require_relative 'board.rb'
 class Piece
 
-    def initialize(color, pos)
-        @color= :color
+    def initialize(color, board, pos)
+        @color= color
         @pos = pos
+        @board=board
     end
+
+    attr_reader :color
+
+    attr_reader :pos
 
     def to_s
         symbol.to_s
@@ -15,7 +23,7 @@ class Piece
     end
 
     def valid_moves
-
+        move_dirs
     end
 
     def pos=(val)
@@ -23,8 +31,8 @@ class Piece
 
     end
 
-    def symbol 
-        "\u2659"
+    def symbol
+
     end
 
     private
